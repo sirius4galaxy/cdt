@@ -57,23 +57,23 @@ create_symlink() {
    ln -sf ../${SUBPREFIX}/bin/$1 ${PREFIX}/bin/$2 || exit 1
 }
 
-create_symlink gax-cc gax-cc
-create_symlink gax-cpp gax-cpp
-create_symlink gax-ld gax-ld
-create_symlink gax-pp gax-pp
-create_symlink gax-init gax-init
-create_symlink gax-wasm2wast gax-wasm2wast
-create_symlink gax-wast2wasm gax-wast2wasm
-create_symlink gax-wasm2wast cdt-wasm2wast
-create_symlink gax-wast2wasm cdt-wast2wasm
-create_symlink gax-ar gax-ar
-create_symlink gax-abidiff gax-abidiff
-create_symlink gax-nm gax-nm
-create_symlink gax-objcopy gax-objcopy
-create_symlink gax-objdump gax-objdump
-create_symlink gax-ranlib gax-ranlib
-create_symlink gax-readelf gax-readelf
-create_symlink gax-strip gax-strip
+create_symlink flon-cc flon-cc
+create_symlink flon-cpp flon-cpp
+create_symlink flon-ld flon-ld
+create_symlink flon-pp flon-pp
+create_symlink flon-init flon-init
+create_symlink flon-wasm2wast flon-wasm2wast
+create_symlink flon-wast2wasm flon-wast2wasm
+create_symlink flon-wasm2wast cdt-wasm2wast
+create_symlink flon-wast2wasm cdt-wast2wasm
+create_symlink flon-ar flon-ar
+create_symlink flon-abidiff flon-abidiff
+create_symlink flon-nm flon-nm
+create_symlink flon-objcopy flon-objcopy
+create_symlink flon-objdump flon-objdump
+create_symlink flon-ranlib flon-ranlib
+create_symlink flon-readelf flon-readelf
+create_symlink flon-strip flon-strip
 create_symlink antler-proj antler-proj
 create_symlink antler-proj cdt-proj
 
