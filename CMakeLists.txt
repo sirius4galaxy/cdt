@@ -23,7 +23,7 @@ if (VERSION_SUFFIX)
 else()
    set(VERSION_FULL "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 endif()
-message(${CMAKE_INSTALL_PREFIX})
+
 set(CDT_INSTALL_PREFIX ${CMAKE_INSTALL_PREFIX}/cdt)
 
 option(ENABLE_NATIVE_COMPILER "enable native builds with the CDT toolchain" ON)
