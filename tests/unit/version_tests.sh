@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eo pipefail
-# The purpose of this test is to ensure that the output of the "gax-cpp --version" command matches the version string defined by our CMake files
-echo '##### gax-cpp Version Label Test #####'
+# The purpose of this test is to ensure that the output of the "flon-cpp --version" command matches the version string defined by our CMake files
+echo '##### flon-cpp Version Label Test #####'
 # orient ourselves
 [[ -z "$BUILD_ROOT" ]] && export BUILD_ROOT="$(pwd)"
 echo "Using BUILD_ROOT=\"$BUILD_ROOT\"."
@@ -12,19 +12,19 @@ if [[ -z "$EXPECTED" ]]; then
     else
         export VERSION="$1"
     fi
-    export EXPECTED="gax-cpp version $VERSION"
+    export EXPECTED="flon-cpp version $VERSION"
 fi
 if [[ -z "$EXPECTED" ]]; then
     echo "Missing version input."
     exit 1
 fi
 echo "Expecting \"$EXPECTED\"..."
-# get gax-cpp version
-ACTUAL=$($BUILD_ROOT/bin/gax-cpp --version)
+# get flon-cpp version
+ACTUAL=$($BUILD_ROOT/bin/flon-cpp --version)
 EXIT_CODE=$?
 # verify 0 exit code explicitly
 if [[ $EXIT_CODE -ne 0 ]]; then
-    echo "gax-cpp produced non-zero exit code \"$EXIT_CODE\"."
+    echo "flon-cpp produced non-zero exit code \"$EXIT_CODE\"."
     exit $EXIT_CODE
 fi
 # test version

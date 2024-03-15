@@ -11,9 +11,9 @@
 
 - Additions to cmake should be done to the CMakeLists.txt in the './src' directory and not in the top level CMakeLists.txt
 
- -- How to build with gax-cpp --
+ -- How to build with flon-cpp --
    - cd into the 'build' directory
-   - run the command 'gax-cpp -abigen ../src/hello.cpp -o hello.wasm -I ../include/'
+   - run the command 'flon-cpp -abigen ../src/hello.cpp -o hello.wasm -I ../include/'
 
  - After build -
    - The built smart contract is in the 'build' directory

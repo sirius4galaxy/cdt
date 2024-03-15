@@ -166,7 +166,7 @@ sudo apt install ./cdt_*_amd64.deb
 ```sh
 sudo rm -fr /usr/local/cdt
 sudo rm -fr /usr/local/lib/cmake/cdt
-sudo rm /usr/local/bin/eosio-*
+sudo rm /usr/local/bin/flon-*
 sudo rm /usr/local/bin/cdt-*
 ```
 

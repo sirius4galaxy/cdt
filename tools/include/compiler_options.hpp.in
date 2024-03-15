@@ -66,8 +66,8 @@ static cl::opt<std::string> imports_opt(
     cl::Hidden,
     cl::cat(LD_CAT));
 static cl::opt<std::string> pp_path_opt(
-    "gax-pp-dir",
-    cl::desc("Set the directory for gax-pp"),
+    "flon-pp-dir",
+    cl::desc("Set the directory for flon-pp"),
     cl::Hidden,
     cl::cat(LD_CAT));
 static cl::opt<bool> use_rt_opt(
