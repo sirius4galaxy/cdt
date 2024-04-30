@@ -11,4 +11,6 @@ void test_privileged( void ) {
    set_blockchain_parameters_packed(NULL, 0);
    get_blockchain_parameters_packed(NULL, 0);
    preactivate_feature(NULL);
+   register_shard_packed(NULL, 0);
+   get_xshard_packed(NULL, NULL, 0);
 }

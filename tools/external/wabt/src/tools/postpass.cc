@@ -47,7 +47,7 @@ static std::unique_ptr<FileStream> s_log_stream;
 static const char s_description[] =
 R"(  Read a file in the WebAssembly binary format, strip bss or any data segment that is only initialized to zeros, and other post processing.
 
-  $ eosio-pp test.wasm -o test.stripped.wasm
+  $ flon-pp test.wasm -o test.stripped.wasm
 
   # or original replacement
   $ wasm2wat test.wasm
@@ -102,7 +102,7 @@ std::vector<DataSegment*> StripZeroedData( std::vector<DataSegment*>&& ds, size_
    for ( auto itr=ds.begin(); itr != ds.end();) {
       if (IsZeroed(*itr)) {
          fix_bytes += (*itr)->data.size();
-	 itr = ds.erase(itr); 
+	 itr = ds.erase(itr);
       } else {
          ++itr;
       }
@@ -111,7 +111,7 @@ std::vector<DataSegment*> StripZeroedData( std::vector<DataSegment*>&& ds, size_
 }
 
 inline std::vector<uint8_t> FillFromSegments(const std::vector<DataSegment*>& segments) {
-  std::vector<uint8_t> memory;  
+  std::vector<uint8_t> memory;
   auto last_segment = segments.back();
   ConstExpr* ce = reinterpret_cast<ConstExpr*>(&(last_segment->offset.front()));
   memory.resize(ce->const_.u32+last_segment->data.size());

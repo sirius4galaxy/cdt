@@ -4,6 +4,7 @@
 #include "../../core/eosio/crypto.hpp"
 #include "../../core/eosio/name.hpp"
 #include "../../core/eosio/serialize.hpp"
+#include "../../core/eosio/shard.hpp"
 
 namespace eosio {
 
@@ -35,6 +36,12 @@ namespace eosio {
 
          __attribute__((eosio_wasm_import))
          int64_t set_proposed_producers_ex( uint64_t producer_data_format, char *producer_data, uint32_t producer_data_size );
+
+         __attribute__((eosio_wasm_import))
+         int64_t register_shard_packed( const char* data, uint32_t datalen );
+
+         __attribute__((eosio_wasm_import))
+         uint32_t get_xshard_packed( const struct capi_checksum256* xsh_id, char* data, uint32_t datalen );
       }
    }
 
@@ -166,6 +173,34 @@ namespace eosio {
       )
    };
 
+
+
+   struct registered_shard {
+      eosio::name          name;          //< name should not be changed within a chainbase modifier lambda
+      uint8_t              shard_type     = (uint8_t)eosio::shard_type::normal;
+      eosio::name          owner;
+      bool                 enabled        = false;
+      uint8_t              opts           = 0; ///< options
+
+      EOSLIB_SERIALIZE(eosio::registered_shard, (name)(shard_type)(owner)(enabled)(opts))
+   };
+
+   using registered_shard_var = std::variant<registered_shard>;
+
+   struct xshard
+   {
+      checksum256          xsh_id;
+      uint32_t             trx_action_sequence;
+      eosio::name          owner;
+      eosio::name          from_shard;
+      eosio::name          to_shard;
+      eosio::name          contract;
+      eosio::name          action_type;
+      std::vector<char>    action_data;
+
+      EOSLIB_SERIALIZE(eosio::xshard, (xsh_id)(owner)(from_shard)(to_shard)(contract)(action_type)(action_data))
+   };
+
    /**
     *  Set the blockchain parameters
     *
@@ -272,4 +307,23 @@ namespace eosio {
       );
    }
 
+   /**
+    * Register shard
+    *
+    * @ingroup privileged
+    * @param shard - shard that we want to register.
+    */
+   inline int64_t register_shard(const registered_shard_var& shard ) {
+      auto packed_shard = eosio::pack( shard );
+      return internal_use_do_not_use::register_shard_packed( (char*)packed_shard.data(), packed_shard.size() );
+   }
+
+   /**
+    * Retrieve the xshard info by xsh_id.
+    * @ingroup privileged
+    *
+    * @param xsh_id - the input xshard id.
+    * @param xsh - output xshard info.
+    */
+   void get_xshard( const checksum256& xsh_id, xshard& xsh );
 }

@@ -7,6 +7,7 @@
 #include "system.hpp"
 #include "../../core/eosio/time.hpp"
 #include "../../core/eosio/serialize.hpp"
+#include "../../core/eosio/shard.hpp"
 
 #include <vector>
 
@@ -39,6 +40,9 @@ namespace eosio {
 
          __attribute__((eosio_wasm_import))
          int get_context_free_data( uint32_t, char*, size_t);
+
+         __attribute__((eosio_wasm_import))
+         uint64_t get_shard_name();
       }
    }
 
@@ -97,8 +101,12 @@ namespace eosio {
       unsigned_int    max_net_usage_words = 0UL; /// number of 8 byte words this transaction can serialize into after compressions
       uint8_t         max_cpu_usage_ms = 0UL; /// number of CPU usage units to bill transaction for
       unsigned_int    delay_sec = 0UL; /// number of seconds to delay transaction, default: 0
+      name            shard_name = "main"_n;
+      uint8_t         shard_type = 0;
 
-      EOSLIB_SERIALIZE( transaction_header, (expiration)(ref_block_num)(ref_block_prefix)(max_net_usage_words)(max_cpu_usage_ms)(delay_sec) )
+      inline eosio::shard_type get_shard_type() const { return eosio::shard_type(shard_type); }
+
+      EOSLIB_SERIALIZE( transaction_header, (expiration)(ref_block_num)(ref_block_prefix)(max_net_usage_words)(max_cpu_usage_ms)(delay_sec)(shard_name)(shard_type) )
    };
 
    /**
@@ -287,5 +295,15 @@ namespace eosio {
     */
    inline int get_context_free_data( uint32_t index, char* buff, size_t size ) {
       return internal_use_do_not_use::get_context_free_data(index, buff, size);
+   }
+
+   /**
+    * Retrieves the current transaction's shard name
+    *
+    * @brief Retrieves the current transaction's shard name
+    * @return the current transaction's shard name
+   */
+   inline name get_shard_name() {
+      return name(internal_use_do_not_use::get_shard_name());
    }
 }
